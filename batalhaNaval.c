@@ -3,6 +3,7 @@
 // Desafio Batalha Naval - MateCheck
 // Este código inicial serve como base para o desenvolvimento do sistema de Batalha Naval.
 // Siga os comentários para implementar cada parte do desafio.
+void aplicarHabilidade(int tabuleiro[10][10], int habilidade[3][5], int linhaBase, int colunaBase);
 
 int main() {
     // Nível Novato - Posicionamento dos Navios
@@ -64,7 +65,7 @@ int main() {
             }
         }
     }
-    
+
     // Nível Mestre - Habilidades Especiais com Matrizes
     // Sugestão: Crie matrizes para representar habilidades especiais como cone, cruz, e octaedro.
     // Sugestão: Utilize estruturas de repetição aninhadas para preencher as áreas afetadas por essas habilidades no tabuleiro.
@@ -75,16 +76,22 @@ int main() {
     // 0 0 1 0 0
     // 0 1 1 1 0
     // 1 1 1 1 1
-    
+    int cone[3][5] = { {0, 0, 1, 0, 0}, {0, 1, 1, 1, 0}, {1, 1, 1, 1, 1} };    
     // Exemplo para habilidade em octaedro:
     // 0 0 1 0 0
     // 0 1 1 1 0
     // 0 0 1 0 0
-
+    int octaedro[3][5] = { {0, 0, 1, 0, 0}, {0, 1, 1, 1, 0}, {0, 0, 1, 0, 0} };
     // Exemplo para habilidade em cruz:
     // 0 0 1 0 0
     // 1 1 1 1 1
     // 0 0 1 0 0
+    int cruz[3][5] = { {0, 0, 1, 0, 0}, {1, 1, 1, 1, 1}, {0, 0, 1, 0, 0} }; 
+    
+    // Função para aplicar a habilidade no tabuleiro
+    aplicarHabilidade(tabuleiro, cone, 7, 5);         
+    aplicarHabilidade(tabuleiro, octaedro, 4, 1);     
+    aplicarHabilidade(tabuleiro, cruz, 1, 5);   
 
     // Exibe o tabuleiro final
     printf("Tabuleiro Final:\n");
@@ -98,4 +105,20 @@ int main() {
     }
 
     return 0;
+}
+
+void aplicarHabilidade(int tabuleiro[10][10], int habilidade[3][5], int linhaBase, int colunaBase) {
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 5; j++) {
+            if (habilidade[i][j] == 1) {
+                int linha = linhaBase + i;
+                int coluna = colunaBase + j;
+                if (linha >= 0 && linha < 10 && coluna >= 0 && coluna < 10) {
+                    if (tabuleiro[linha][coluna] != 3) {
+                        tabuleiro[linha][coluna] = 1;
+                    }
+                }
+            }
+        }
+    }
 }
